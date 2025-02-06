@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .controls button, .controls select {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .controls button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .controls button:hover {
+            background-color: #45a049;
+        }
+
+        .controls select {
+            background-color: #d1e0e0;
+        }
+
+        .strike-counter {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #ff3333;
+        }
+
+        .sudoku-board {
+            display: grid;
+            grid-template-columns: repeat(9, 40px);
+            grid-template-rows: repeat(9, 40px);
+            gap: 0;
+            border: 3px solid #000;
+        }
+
+        .sudoku-board input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+            border: 1px solid #999;
+            outline: none;
+        }
+
+        .sudoku-board input:disabled {
+            background-color: #d3e0ea;
+        }
+
+        .sudoku-board .bold-border-top {
+            border-top: 3px solid #000;
+        }
+
+        .sudoku-board .bold-border-left {
+            border-left: 3px solid #000;
+        }
+
+        .correct {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku Game</h1>
+        <div class="controls">
+            <label for="difficulty">Select Difficulty:</label>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <button onclick="startGame()">Start Game</button>
+        </div>
+        <div class="sudoku-board" id="sudoku-board">
+            <!-- Sudoku grid will be generated here -->
+        </div>
+        <div class="strike-counter" id="strike-counter">Strikes: 0</div>
+    </div>
+
+    <script>
+        const boardElement = document.getElementById('sudoku-board');
+        const strikeCounterElement = document.getElementById('strike-counter');
+        let solution = [];
+        let strikes = 0;
+
+        function createBoard(board, solvedBoard) {
+            boardElement.innerHTML = '';
+            solution = solvedBoard;
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.maxLength = 1;
+                    input.dataset.row = i;
+                    input.dataset.col = j;
+
+                    if (board[i][j] !== 0) {
+                        input.value = board[i][j];
+                        input.disabled = true;
+                    } else {
+                        input.addEventListener('change', handleInput);
+                    }
+
+                    if (i % 3 === 0 && i !== 0) {
+                        input.classList.add('bold-border-top');
+                    }
+                    if (j % 3 === 0 && j !== 0) {
+                        input.classList.add('bold-border-left');
+                    }
+
+                    boardElement.appendChild(input);
+                }
+            }
+        }
+
+        function startGame() {
+            const difficulty = document.getElementById('difficulty').value;
+            strikes = 0;
+            strikeCounterElement.textContent = `Strikes: ${strikes}`;
+
+            fetch(`/start_game?difficulty=${difficulty}`)
+                .then(response => response.json())
+                .then(data => {
+                    createBoard(data.board, data.solution);
+                });
+        }
+
+        function handleInput(event) {
+            const input = event.target;
+            const row = parseInt(input.dataset.row);
+            const col = parseInt(input.dataset.col);
+            const value = parseInt(input.value);
+
+            if (value === solution[row][col]) {
+                input.classList.add('correct');
+                input.disabled = true;
+            } else {
+                input.value = '';
+                strikes++;
+                strikeCounterElement.textContent = `Strikes: ${strikes}`;
+            }
+        }
+    </script>
+</body>
+</html>
