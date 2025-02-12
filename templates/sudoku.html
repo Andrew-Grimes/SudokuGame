@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Lora', serif;
+            background-color: #FFE5B4;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,54 +21,28 @@
         }
 
         .container {
-            text-align: center;
-            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            background: #FFD180;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .controls button, .controls select {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .controls button {
-            background-color: #4CAF50;
+        .panel {
+            flex: 1;
+            background: #D2691E;
             color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
         }
 
-        .controls button:hover {
-            background-color: #45a049;
-        }
-
-        .controls select {
-            background-color: #d1e0e0;
-        }
-
-        .strike-counter {
-            margin-top: 10px;
-            font-size: 18px;
-            color: #ff3333;
+        h1, h2 {
+            font-family: 'Italiana', serif;
         }
 
         .sudoku-board {
@@ -75,7 +50,9 @@
             grid-template-columns: repeat(9, 40px);
             grid-template-rows: repeat(9, 40px);
             gap: 0;
-            border: 3px solid #000;
+            margin: auto;
+            border: 3px solid black;
+            background: #FFF3E0;
         }
 
         .sudoku-board input {
@@ -83,64 +60,97 @@
             height: 40px;
             text-align: center;
             font-size: 18px;
-            border: 1px solid #999;
+            border: 1px solid black;
             outline: none;
         }
 
         .sudoku-board input:disabled {
-            background-color: #d3e0ea;
+            background-color: #FFD180;
+            font-weight: bold;
             cursor: pointer;
         }
 
         .highlight {
-            border: 2px solid #000 !important;
-            background-color: #98FF98 !important;
+            border: 2px solid black !important;
+            background-color: #D3D3D3 !important;
         }
 
-        .sudoku-board .bold-border-top {
-            border-top: 3px solid #000;
+        .controls {
+            margin: 10px 0;
         }
 
-        .sudoku-board .bold-border-left {
-            border-left: 3px solid #000;
-        }
-
-        .correct {
-            font-weight: bold;
+        .leaderboard, .timer {
+            background: #A0522D;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Sudoku Game</h1>
-        <div class="controls">
-            <label for="difficulty">Select Difficulty:</label>
-            <select id="difficulty">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-            <button onclick="startGame()">Start Game</button>
+        <div class="panel" id="directions">
+            <h2>Directions</h2>
+            <p><strong>How to Play:</strong></p>
+            <p>- Select a difficulty level.</p>
+            <p>- Fill the grid so each row, column, and 3x3 section contains 1-9.</p>
+            <p>- Click on a number to highlight all instances.</p>
         </div>
-        <div class="sudoku-board" id="sudoku-board">
+
+        <div class="panel" id="game">
+            <h1>Sudoku Game</h1>
+            <div class="controls">
+                <label for="difficulty">Select Difficulty:</label>
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <button onclick="startGame()">Start Game</button>
+            </div>
+            <div class="sudoku-board" id="sudoku-board"></div>
+            <div class="strike-counter" id="strike-counter">Strikes: 0</div>
         </div>
-        <div class="strike-counter" id="strike-counter">Strikes: 0</div>
+
+        <div class="panel" id="settings">
+            <h2>Settings</h2>
+            <div class="timer">Timer: <span id="timer">00:00</span></div>
+            <div class="leaderboard">
+                <h3>Leaderboard</h3>
+                <p>User | Wins</p>
+            </div>
+        </div>
     </div>
 
     <script>
-        const boardElement = document.getElementById('sudoku-board');
-        const strikeCounterElement = document.getElementById('strike-counter');
-        let solution = [];
-        let strikes = 0;
+        let timerInterval, time = 0;
+        function startTimer() {
+            clearInterval(timerInterval);
+            time = 0;
+            timerInterval = setInterval(() => {
+                time++;
+                document.getElementById("timer").textContent = new Date(time * 1000).toISOString().substr(14, 5);
+            }, 1000);
+        }
+
+        function startGame() {
+            startTimer();
+            const difficulty = document.getElementById('difficulty').value;
+            fetch(`/start_game?difficulty=${difficulty}`)
+                .then(response => response.json())
+                .then(data => {
+                    createBoard(data.board, data.solution);
+                });
+        }
 
         function createBoard(board, solvedBoard) {
+            const boardElement = document.getElementById('sudoku-board');
             boardElement.innerHTML = '';
-            solution = solvedBoard;
             for (let i = 0; i < 9; i++) {
                 for (let j = 0; j < 9; j++) {
                     const input = document.createElement('input');
                     input.type = 'text';
-                    input.maxLength = 1;
                     input.dataset.row = i;
                     input.dataset.col = j;
 
@@ -152,64 +162,26 @@
                         input.addEventListener('change', handleInput);
                     }
 
-                    if (i % 3 === 0 && i !== 0) {
-                        input.classList.add('bold-border-top');
-                    }
-                    if (j % 3 === 0 && j !== 0) {
-                        input.classList.add('bold-border-left');
-                    }
-
                     boardElement.appendChild(input);
                 }
             }
         }
 
-        function startGame() {
-            const difficulty = document.getElementById('difficulty').value;
-            strikes = 0;
-            strikeCounterElement.textContent = `Strikes: ${strikes}`;
-
-            fetch(`/start_game?difficulty=${difficulty}`)
-                .then(response => response.json())
-                .then(data => {
-                    createBoard(data.board, data.solution);
-                });
-        }
-
         function handleInput(event) {
             const input = event.target;
-            const row = parseInt(input.dataset.row);
-            const col = parseInt(input.dataset.col);
-            const value = parseInt(input.value);
-
-            if (value === solution[row][col]) {
-                input.classList.add('correct');
-                input.disabled = true;
-                input.addEventListener('click', () => highlightNumbers(value));
-            } else {
-                input.value = '';
-                strikes++;
-                strikeCounterElement.textContent = `Strikes: ${strikes}`;
+            if (input.value.length > 1) {
+                input.value = input.value.slice(0, 1);
             }
         }
 
         function highlightNumbers(number) {
-            const inputs = document.querySelectorAll('.sudoku-board input');
-            inputs.forEach(input => {
+            document.querySelectorAll('.sudoku-board input').forEach(input => {
                 input.classList.remove('highlight');
                 if (input.value == number) {
                     input.classList.add('highlight');
                 }
             });
         }
-
-        document.addEventListener('click', function(event) {
-            if (!event.target.matches('input:disabled, .correct')) {
-                document.querySelectorAll('.sudoku-board input').forEach(input => {
-                    input.classList.remove('highlight');
-                });
-            }
-        });
     </script>
 </body>
 </html>
