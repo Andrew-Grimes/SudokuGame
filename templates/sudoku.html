@@ -145,8 +145,8 @@
                     input.dataset.row = i;
                     input.dataset.col = j;
 
-                    if (board[i][j] !== 0) {
-                        input.value = board[i][j];
+                    if (board[i][j].prefilled) {
+                        input.value = board[i][j].value;
                         input.disabled = true;
                         input.addEventListener('click', () => highlightNumbers(input.value));
                     } else {
