@@ -4,7 +4,6 @@ import copy
 
 app = Flask(__name__, static_url_path='', static_folder='static', template_folder='templates')
 
-# Generate a complete Sudoku board
 def fill_board(board):
     numbers = list(range(1, 10))
     for i in range(9):
@@ -20,7 +19,6 @@ def fill_board(board):
                 return False
     return True
 
-# Check if a number placement is valid
 def is_valid(board, row, col, num):
     for i in range(9):
         if board[row][i] == num or board[i][col] == num:
@@ -32,7 +30,6 @@ def is_valid(board, row, col, num):
                 return False
     return True
 
-# Generate puzzle by removing numbers
 def generate_puzzle(difficulty):
     board = [[0 for _ in range(9)] for _ in range(9)]
     fill_board(board)
@@ -47,7 +44,12 @@ def generate_puzzle(difficulty):
             board[i][j] = 0
             removed_cells.add((i, j))
 
-    return board, solution
+    highlighted_board = [
+        [{'value': board[i][j], 'prefilled': board[i][j] != 0} for j in range(9)]
+        for i in range(9)
+    ]
+
+    return highlighted_board, solution
 
 @app.route('/')
 def index():
