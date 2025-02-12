@@ -66,11 +66,15 @@ def start_game():
 def check_solution():
     user_board = request.json.get('board')
     solution = app.config.get('solution')
-
+    
     if user_board == solution:
         return jsonify({"correct": True})
     else:
         return jsonify({"correct": False})
+
+@app.route('/leaderboard')
+def leaderboard():
+    return jsonify({"users": ["Player1", "Player2"], "wins": [5, 3]})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
