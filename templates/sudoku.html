@@ -93,8 +93,8 @@
         }
 
         .highlight {
-            border: 2px solid #4CAF50;
-            background-color: #e0e0e0;
+            border: 2px solid #4CAF50 !important;
+            background-color: #e0e0e0 !important;
         }
 
         .sudoku-board .bold-border-top {
@@ -203,6 +203,14 @@
                 }
             });
         }
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('input:disabled, .correct')) {
+                document.querySelectorAll('.sudoku-board input').forEach(input => {
+                    input.classList.remove('highlight');
+                });
+            }
+        });
     </script>
 </body>
 </html>
