@@ -45,7 +45,7 @@ def generate_puzzle(difficulty):
             removed_cells.add((i, j))
 
     highlighted_board = [
-        [{'value': board[i][j], 'prefilled': board[i][j] != 0} for j in range(9)]
+        [{'value': board[i][j], 'prefilled': board[i][j] != 0, 'solution': solution[i][j]} for j in range(9)]
         for i in range(9)
     ]
 
