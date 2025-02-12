@@ -44,12 +44,12 @@ def generate_puzzle(difficulty):
             board[i][j] = 0
             removed_cells.add((i, j))
 
-    highlighted_board = [
+    puzzle_with_meta = [
         [{'value': board[i][j], 'prefilled': board[i][j] != 0, 'solution': solution[i][j]} for j in range(9)]
         for i in range(9)
     ]
 
-    return highlighted_board, solution
+    return puzzle_with_meta, solution
 
 @app.route('/')
 def index():
