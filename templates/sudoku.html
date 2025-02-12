@@ -89,6 +89,12 @@
 
         .sudoku-board input:disabled {
             background-color: #d3e0ea;
+            cursor: pointer;
+        }
+
+        .highlight {
+            border: 2px solid #4CAF50;
+            background-color: #e0e0e0;
         }
 
         .sudoku-board .bold-border-top {
@@ -142,6 +148,7 @@
                     if (board[i][j] !== 0) {
                         input.value = board[i][j];
                         input.disabled = true;
+                        input.addEventListener('click', () => highlightNumbers(input.value));
                     } else {
                         input.addEventListener('change', handleInput);
                     }
@@ -179,11 +186,22 @@
             if (value === solution[row][col]) {
                 input.classList.add('correct');
                 input.disabled = true;
+                input.addEventListener('click', () => highlightNumbers(value));
             } else {
                 input.value = '';
                 strikes++;
                 strikeCounterElement.textContent = `Strikes: ${strikes}`;
             }
+        }
+
+        function highlightNumbers(number) {
+            const inputs = document.querySelectorAll('.sudoku-board input');
+            inputs.forEach(input => {
+                input.classList.remove('highlight');
+                if (input.value == number) {
+                    input.classList.add('highlight');
+                }
+            });
         }
     </script>
 </body>
