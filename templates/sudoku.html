@@ -19,6 +19,15 @@
             margin: 0;
         }
 
+        .panel {
+            flex: 1;
+            background: #D2691E;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
         .container {
             text-align: center;
             background: #fff;
@@ -30,8 +39,29 @@
             align-items: center;
         }
 
-        h1 {
+        h1, h2 {
             margin-bottom: 20px;
+        }
+
+        .directions {
+            flex: 1;
+            background: #FFF3E0;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .directions h2 {
+            font-family: 'Italiana', serif;
+            text-align: center;
+        }
+
+        .directions p {
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            margin: 10px 0;
         }
 
         .controls {
@@ -111,6 +141,28 @@
     </style>
 </head>
 <body>
+
+    <div class="directions">
+        <h2>Directions</h2>
+        <p><strong>How to Play:</strong></p>
+        <p><strong>Start a Game:</strong></p>
+        <p>- Select a difficulty level (Easy, Medium, or Hard).</p>
+        <p>- The game generates a board with some numbers already filled in.</p>
+        <p><strong>Placing Numbers:</strong></p>
+        <p>- Click on an empty square and enter a number (1-9).</p>
+        <p>- If the number is correct, it remains bolded.</p>
+        <p>- If the number is incorrect, it is removed, and a strike is added.</p>
+        <p><strong>Highlighting:</strong></p>
+        <p>- Click on a pre-filled number, and all visible instances of that number will be highlighted with a mint gray background and bold black border.</p>
+        <p>- This helps track numbers easily across the board.</p>
+        <p><strong>Winning the Game:</strong></p>
+        <p>- The puzzle is complete when all cells are correctly filled.</p>
+        <p>- Click Check Solution to verify your answers.</p>
+        <p>- If all numbers are correct, you win the game!</p>
+        <p><strong>Losing the Game:</strong></p>
+        <p>- If you exceed the allowed number of strikes (if implemented), you may lose the game.</p>
+    </div>
+
     <div class="container">
         <h1>Sudoku Game</h1>
         <div class="controls">
