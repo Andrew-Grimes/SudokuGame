@@ -73,6 +73,15 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* 🔹 Divider inside Sudoku game container */
+.sudoku-divider {
+    width: 450px;
+    height: 0px;
+    border-top: 4px solid black;
+    margin-top: 10px;
+    align-self: center;
+}
+
 /* Apply Italiana font for the main heading */
 h1 {
     font-family: 'Italiana', sans-serif;
