@@ -1,3 +1,7 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+
 /* Apply a global box-sizing rule */
 * {
     box-sizing: border-box;
@@ -5,8 +9,8 @@
 
 /* Apply the main theme with a light orange background */
 body {
-    font-family: 'Italiana', sans-serif;
-    background-color: #FFE5B4;  /* Light orange background */
+    font-family: 'Lora', serif;
+    background-color: #FFE5B4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +18,7 @@ body {
     margin: 0;
 }
 
-/* 🔹 NEW: Flex container to position Directions & Sudoku properly */
+/* Flex container to position Directions & Sudoku properly */
 .page-container {
     display: flex;
     justify-content: center;
@@ -24,7 +28,7 @@ body {
     height: 555px;
 }
 
-/* 🔹 Directions Panel - Now properly aligned to the left */
+/* 🔹 Directions Panel */
 .directions-container {
     background: #fff;
     padding: 20px;
@@ -32,34 +36,54 @@ body {
     text-align: left;
     width: 400px;  
     height: 550px;  
-    border: 1px solid #333;  /* Softer and thinner border */
+    border: 1px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
-/* Directions Heading */
-.directions-container h2 {
-    font-family: 'Italiana', sans-serif;
-    font-size: 24px;
+/* 🔹 Directions Header Wrapper for Proper Spacing */
+.directions-header {
+    position: relative;
+    width: 100%;
     text-align: center;
     margin-bottom: 10px;
 }
 
-/* Subheadings Underline */
-.directions-container h3 {
-    font-size: 16px;
-    text-decoration: underline;
-    margin-top: 5px;
+/* 🔹 Top Line in Directions Panel (90% width of container) */
+.directions-top-line {
+    width: 97%;
+    border: none;
+    border-top: 4px solid black;
+    position: relative;
+    margin-top: -12px;
 }
 
-/* Main text inside Directions Panel */
+/* 🔹 Increase Directions Title Size & Align Spacing */
+.directions-container h2 {
+    font-family: 'Italiana', sans-serif;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* 🔹 Reduce spacing between subheaders and first paragraph */
+.directions-container h3 {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    text-decoration: underline;
+    font-weight: normal;
+    margin-bottom: 2px; /* Closer to the first paragraph */
+}
+
+/* 🔹 Reduce spacing within the paragraph text */
 .directions-container p {
     font-family: 'Lora', serif;
-    font-size: 12px;  
-    line-height: 1.5;
-    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 1.1; /* Reduced from 1.2 */
+    margin-bottom: 2px; /* Reduced from 4px */
 }
 
-/* 🔹 SudokuGame - Keep Centered */
+/* 🔹 Sudoku Game Container */
 .game-container {
     text-align: center;
     background: #fff;
@@ -69,26 +93,32 @@ body {
     align-items: center;
     width: 500px;  
     height: 600px;  
-    border: 1px solid #333;  /* Softer and thinner border */
+    border: 1px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 Ensure the header wrapper inside game-container */
+.game-header {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 /* 🔹 Divider inside Sudoku game container */
 .top-line {
-    width: 450px;
+    width: 97%;
     border: none;
     border-top: 4px solid black;
-    position: absolute;
-    top: 10px;  /* Adjust to position below the top border */
-    left: 50%;
-    transform: translateX(-50%); /* Center it */
+    position: relative;
+    margin-top: -12px;
 }
 
-/* Apply Italiana font for the main heading */
+/* Sudoku Game Title - Increased Size & Less Spacing */
 h1 {
-    font-family: 'Italiana', sans-serif;
-    font-size: 28px;
-    margin-bottom: 20px;
+    font-family: 'Italiana', sans-serif !important;
+    font-size: 32px;
+    margin-bottom: 10px;
 }
 
 /* Controls for game settings */
@@ -97,7 +127,7 @@ h1 {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
 }
 
@@ -165,7 +195,7 @@ h1 {
 /* Highlight numbers when clicked */
 .highlight {
     border: 2px solid black !important;
-    background-color: #C5C6D0 !important; 
+    background-color: #C5C6D0 !important;
 }
 
 /* Bold Borders to distinguish 3x3 sections */
@@ -180,5 +210,5 @@ h1 {
 /* Correct numbers appear bold */
 .correct {
     font-weight: bold;
-    color: #2E7D32; 
+    color: #2E7D32;
 }
