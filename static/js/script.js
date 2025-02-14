@@ -93,4 +93,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     startGameBtn.addEventListener("click", startGame);
 });
-11
