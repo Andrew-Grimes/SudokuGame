@@ -1,6 +1,6 @@
 # pyright: reportMissingImports=false
 try:
-    from js import document, fetch
+    from js import document, fetch, console
 except ImportError:
     print("Warning: PyScript is only available in a browser environment.")
 
@@ -15,10 +15,10 @@ solution = []
 strikes = 0
 
 def create_board(board, solved_board):
-    """Creates the Sudoku board in the UI."""
+    """Creates and renders the Sudoku board in the UI."""
     global solution
     solution = solved_board
-    board_element.innerHTML = ""  # Clear the board before updating
+    board_element.innerHTML = ""  # Clear the board before rendering a new one
 
     for i in range(9):
         for j in range(9):
@@ -44,7 +44,7 @@ def create_board(board, solved_board):
             board_element.appendChild(input_element)
 
 def start_game(event=None):
-    """Starts a new Sudoku game by fetching a board from Flask."""
+    """Fetches a new Sudoku puzzle and updates the board."""
     global strikes
     strikes = 0
     strike_counter_element.innerText = f"Strikes: {strikes}"
@@ -56,11 +56,11 @@ def start_game(event=None):
     ).then(
         lambda data: create_board(data["board"], data["solution"])
     ).catch(
-        lambda error: print(f"Error fetching Sudoku board: {error}")
+        lambda error: console.log(f"Error fetching Sudoku board: {error}")
     )
 
 def handle_input(event):
-    """Handles user input for placing numbers."""
+    """Handles user input for Sudoku cells."""
     global strikes
     input_element = event.target
     row = int(input_element.getAttribute("data-row"))
@@ -82,7 +82,7 @@ def handle_input(event):
         strike_counter_element.innerText = f"Strikes: {strikes}"
 
 def highlight_numbers(number):
-    """Highlights all cells with the same number."""
+    """Highlights all occurrences of the selected number."""
     inputs = document.querySelectorAll(".sudoku-board input")
     for input_element in inputs:
         input_element.classList.remove("highlight")
@@ -95,6 +95,6 @@ document.addEventListener("click", lambda event: (
     if not event.target.matches("input:disabled, .correct") else None
 ))
 
-# Attach event listener for starting game
+# Attach event listener for starting the game
 if start_game_btn:
     start_game_btn.addEventListener("click", start_game)
