@@ -1,10 +1,12 @@
+/* Apply a global box-sizing rule */
 * {
     box-sizing: border-box;
 }
 
+/* Apply the main theme with a light orange background */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Italiana', sans-serif;
+    background-color: #FFE5B4;  /* Light orange background */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,6 +14,7 @@ body {
     margin: 0;
 }
 
+/* Main container */
 .container {
     text-align: center;
     background: #fff;
@@ -23,10 +26,14 @@ body {
     align-items: center;
 }
 
+/* Apply Italiana font for the main heading */
 h1 {
+    font-family: 'Italiana', sans-serif;
+    font-size: 28px;
     margin-bottom: 20px;
 }
 
+/* Controls for game settings */
 .controls {
     display: flex;
     justify-content: center;
@@ -36,6 +43,7 @@ h1 {
     flex-wrap: wrap;
 }
 
+/* Style buttons and dropdown menu */
 .controls button, .controls select {
     padding: 10px 20px;
     font-size: 16px;
@@ -44,25 +52,33 @@ h1 {
     cursor: pointer;
 }
 
+/* Start button style */
 .controls button {
     background-color: #4CAF50;
     color: white;
+    font-family: 'Lora', serif;
 }
 
+/* Button hover effect */
 .controls button:hover {
     background-color: #45a049;
 }
 
+/* Dropdown style */
 .controls select {
     background-color: #d1e0e0;
+    font-family: 'Lora', serif;
 }
 
+/* Strike counter */
 .strike-counter {
     margin-top: 10px;
     font-size: 18px;
     color: #ff3333;
+    font-family: 'Lora', serif;
 }
 
+/* Sudoku Board Styling */
 .sudoku-board {
     display: grid;
     grid-template-columns: repeat(9, 40px);
@@ -71,6 +87,7 @@ h1 {
     border: 3px solid #000;
 }
 
+/* Styling for Sudoku input fields */
 .sudoku-board input {
     width: 40px;
     height: 40px;
@@ -78,26 +95,32 @@ h1 {
     font-size: 18px;
     border: 1px solid #999;
     outline: none;
+    font-family: 'Lora', serif;
 }
 
+/* Prefilled (disabled) numbers styling */
 .sudoku-board input:disabled {
     background-color: #d3e0ea;
     cursor: pointer;
 }
 
+/* Highlight numbers when clicked */
 .highlight {
-    border: 2px solid #000 !important;
-    background-color: #98FF98 !important;
+    border: 2px solid black !important;
+    background-color: #C5C6D0 !important;  /* Mint gray */
 }
 
+/* Bold Borders to distinguish 3x3 sections */
 .sudoku-board .bold-border-top {
-    border-top: 3px solid #000;
+    border-top: 4px solid #000;
 }
 
 .sudoku-board .bold-border-left {
-    border-left: 3px solid #000;
+    border-left: 4px solid #000;
 }
 
+/* Correct numbers appear bold */
 .correct {
     font-weight: bold;
+    color: #2E7D32; /* Dark green */
 }
