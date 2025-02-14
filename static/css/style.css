@@ -28,12 +28,13 @@ body {
 .directions-container {
     background: #fff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: 'Lora', serif;
     text-align: left;
     width: 400px;  
     height: 550px;  
+    border-radius: 0px;  /* Removes rounded corners */
+    border: 3px solid black;  /* Adds black outline */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Directions Heading */
@@ -64,13 +65,14 @@ body {
     text-align: center;
     background: #fff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 500px;  
     height: 600px;  
+    border-radius: 0px;  /* Removes rounded corners */
+    border: 3px solid black;  /* Adds black outline */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Apply Italiana font for the main heading */
