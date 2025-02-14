@@ -91,4 +91,4 @@ def serve_pyscript(filename):
     return send_from_directory(safe_directory, filename)
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')  # Set debug=False for production safety
+    app.run(debug=False, host='0.0.0.0')
