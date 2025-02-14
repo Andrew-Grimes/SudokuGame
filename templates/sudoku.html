@@ -11,34 +11,40 @@
 </head>
 <body>
 
-    <!-- Directions Panel -->
+    <!-- Main Layout Container -->
     <div class="page-container">
+        
+        <!-- Directions Panel -->
         <div class="directions-container">
-            <h2>Directions</h2>
+            <div class="directions-header">
+                <hr class="directions-top-line">
+                <h2>Directions</h2>
+            </div>
             <h3>Start a Game</h3>
-            <p>Select a difficulty level (Easy, Medium, or Hard).</p>
-            <p>The game generates a board with some numbers already filled in.</p>
+            <p>&bull; Select a difficulty level (Easy, Medium, or Hard).</p>
+            <p>&bull; The game generates a board with some numbers already filled in.</p>
 
             <h3>Placing Numbers</h3>
-            <p>Click on an empty square and enter a number (1-9).</p>
-            <p>If the number is correct, it remains bolded.</p>
-            <p>If the number is incorrect, it is removed, and a strike is added.</p>
+            <p>&bull; Click on an empty square and enter a number (1-9).</p>
+            <p>&bull; If the number is correct, it remains bolded.</p>
+            <p>&bull; If the number is incorrect, it is removed, and a strike is added.</p>
 
             <h3>Highlighting</h3>
-            <p>Click on a pre-filled number, and all visible instances of that number will be highlighted with a mint gray background and bold black border.</p>
-            <p>This helps track numbers easily across the board.</p>
+            <p>&bull; Click on a pre-filled number, and all visible instances of that number will be highlighted with a mint gray background and bold black border.</p>
+            <p>&bull; This helps track numbers easily across the board.</p>
 
             <h3>Winning the Game</h3>
-            <p>The puzzle is complete when all cells are correctly filled.</p>
-            <p>Click Check Solution to verify your answers.</p>
-            <p>If all numbers are correct, you win the game!</p>
-
+            <p>&bull; The puzzle is complete when all cells are correctly filled.</p>
+            <p>&bull; Click Check Solution to verify your answers.</p>
+            <p>&bull; If all numbers are correct, you win the game!</p>
         </div>
 
-    <!-- Sudoku Game Container -->
+        <!-- Sudoku Game Container -->
         <div class="game-container">
-            <hr class="top-line">
-            <h1>Sudoku Game</h1>
+            <div class="game-header">
+                <hr class="top-line"> 
+                <h1>Sudoku Game</h1>
+            </div>
             <div class="controls">
                 <label for="difficulty">Select Difficulty:</label>
                 <select id="difficulty">
@@ -51,6 +57,7 @@
             <div class="sudoku-board" id="sudoku-board"></div>
             <div class="strike-counter" id="strike-counter">Strikes: 0</div>
         </div>
+        
     </div>
 
 </body>
