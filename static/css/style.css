@@ -14,11 +14,53 @@ body {
     margin: 0;
 }
 
+/* 🔹 NEW: Flex container to position Directions & Sudoku properly */
+.page-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    gap: 80px; 
+    width: 90%;
+    padding: 20px;
+}
 
+/* 🔹 Directions Panel - Now properly aligned to the left */
+.directions-container {
+    width: 400px;  
+    height: auto;  
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Lora', serif;
+    text-align: left;
+}
 
-/* SudokuGame */
-/* Main container */
-.container {
+/* Directions Heading */
+.directions-container h2 {
+    font-family: 'Italiana', sans-serif;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Subheadings Underline */
+.directions-container h3 {
+    font-size: 16px;
+    text-decoration: underline;
+    margin-top: 5px;
+}
+
+/* Main text inside Directions Panel */
+.directions-container p {
+    font-family: 'Lora', serif;
+    font-size: 12px;  /* Slightly larger for better readability */
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+/* 🔹 SudokuGame - Keep Centered */
+.game-container {
     text-align: center;
     background: #fff;
     padding: 20px;
@@ -27,6 +69,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 450px;
 }
 
 /* Apply Italiana font for the main heading */
@@ -126,42 +169,4 @@ h1 {
 .correct {
     font-weight: bold;
     color: #2E7D32; /* Dark green */
-}
-
-
-/* Directions */
-/* Directions Panel */
-.directions-container {
-    width: 450px; 
-    height: 500px; 
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-/* Directions Heading */
-.directions-container h2 {
-    font-family: 'Italiana', sans-serif;
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-/* Subheadings Underline */
-.directions-container h3 {
-    font-size: 16px;
-    text-decoration: underline;
-    margin-top: 5px;
-}
-
-/* Main text inside Directions Panel */
-.directions-container p {
-    font-family: 'Lora', serif;
-    font-size: 10px;  
-    line-height: 1.4;
-    margin-bottom: 8px;
 }
