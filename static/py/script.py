@@ -1,6 +1,8 @@
 # pyright: reportMissingImports=false
 try:
-    from js import document, fetch, console
+    from js import document
+    from pyodide.http import pyfetch
+    from pyscript import when
 except ImportError:
     print("Warning: PyScript is only available in a browser environment.")
 
@@ -9,10 +11,21 @@ import json
 # Get HTML elements
 board_element = document.getElementById("sudoku-board")
 strike_counter_element = document.getElementById("strike-counter")
-start_game_btn = document.getElementById("startGameBtn")
 
 solution = []
 strikes = 0
+
+async def fetch_sudoku(event=None):
+    """Fetches a new Sudoku puzzle from Flask API and updates the board."""
+    global strikes
+    strikes = 0
+    strike_counter_element.innerText = f"Strikes: {strikes}"
+
+    difficulty = document.querySelector("#difficulty").value
+    response = await pyfetch(f"/start_game?difficulty={difficulty}", method="GET", headers={"Content-Type": "application/json"})
+    data = await response.json()
+    
+    create_board(data["board"], data["solution"])
 
 def create_board(board, solved_board):
     """Creates and renders the Sudoku board in the UI."""
@@ -32,9 +45,14 @@ def create_board(board, solved_board):
                 input_element.value = str(board[i][j]["value"])
                 input_element.disabled = True
                 input_element.classList.add("prefilled")
-                input_element.onclick = lambda event, num=input_element.value: highlight_numbers(num)
+
+                # Use a closure function to correctly capture the number value
+                def make_highlight_func(num):
+                    return lambda event: highlight_numbers(num)
+
+                input_element.onclick = make_highlight_func(input_element.value)
             else:
-                input_element.addEventListener("input", handle_input)
+                input_element.setAttribute("oninput", "handle_input(event)")
 
             if i % 3 == 0 and i != 0:
                 input_element.classList.add("bold-border-top")
@@ -42,22 +60,6 @@ def create_board(board, solved_board):
                 input_element.classList.add("bold-border-left")
 
             board_element.appendChild(input_element)
-
-def start_game(event=None):
-    """Fetches a new Sudoku puzzle and updates the board."""
-    global strikes
-    strikes = 0
-    strike_counter_element.innerText = f"Strikes: {strikes}"
-
-    difficulty = document.getElementById("difficulty").value
-
-    fetch(f"/start_game?difficulty={difficulty}").then(
-        lambda response: response.json()
-    ).then(
-        lambda data: create_board(data["board"], data["solution"])
-    ).catch(
-        lambda error: console.log(f"Error fetching Sudoku board: {error}")
-    )
 
 def handle_input(event):
     """Handles user input for Sudoku cells."""
@@ -75,7 +77,12 @@ def handle_input(event):
     if value == solution[row][col]:
         input_element.classList.add("correct")
         input_element.disabled = True
-        input_element.onclick = lambda event, num=value: highlight_numbers(num)
+
+        # Ensure highlight functionality works for newly placed numbers
+        def make_highlight_func(num):
+            return lambda event: highlight_numbers(num)
+
+        input_element.onclick = make_highlight_func(value)
     else:
         input_element.value = ""
         strikes += 1
@@ -90,11 +97,10 @@ def highlight_numbers(number):
             input_element.classList.add("highlight")
 
 # Reset highlights when clicking outside the board
-document.addEventListener("click", lambda event: (
+when("click", "body", lambda event: (
     [input_element.classList.remove("highlight") for input_element in document.querySelectorAll(".sudoku-board input")]
     if not event.target.matches("input:disabled, .correct") else None
 ))
 
 # Attach event listener for starting the game
-if start_game_btn:
-    start_game_btn.addEventListener("click", start_game)
+when("click", "#startGameBtn", fetch_sudoku)
