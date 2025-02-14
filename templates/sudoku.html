@@ -8,11 +8,6 @@
 
     <!-- Load PyScript -->
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-
-    <!-- PyScript Configuration -->
-    <py-config>
-        packages = []
-    </py-config>
 </head>
 <body>
     <div class="container">
@@ -24,13 +19,29 @@
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
             </select>
-            <button id="startGameBtn" py-click="start_game">Start Game</button>
+            <button id="startGameBtn">Start Game</button>
         </div>
         <div class="sudoku-board" id="sudoku-board"></div>
         <div class="strike-counter" id="strike-counter">Strikes: 0</div>
     </div>
 
     <!-- PyScript Integration -->
+    <py-script>
+        # language=python
+        from js import document
+        from pyodide.http import pyfetch
+        from pyscript import when
+        
+        async def fetch_sudoku():
+            """ Fetch the Sudoku board from Flask API and create the board """
+            difficulty = document.querySelector("#difficulty").value
+            response = await pyfetch(f"/start_game?difficulty={difficulty}", method="GET", headers={"Content-Type": "application/json"})
+            data = await response.json()
+            pyscript.run("create_board", data["board"], data["solution"])
+
+        when("click", "#startGameBtn", fetch_sudoku)
+    </py-script>
+    
     <py-script src="{{ url_for('static', filename='py/script.py') }}"></py-script>
 </body>
 </html>
