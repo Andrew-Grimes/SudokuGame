@@ -17,23 +17,23 @@ body {
 /* 🔹 NEW: Flex container to position Directions & Sudoku properly */
 .page-container {
     display: flex;
-    justify-content: center; 
-    align-items: center;  
+    justify-content: center;
+    align-items: center;
     gap: 80px; 
-    width: 90%;
-    padding: 20px;
+    width: 1308px;
+    height: 555px;
 }
 
 /* 🔹 Directions Panel - Now properly aligned to the left */
 .directions-container {
-    width: 600px;  
-    height: auto;  
     background: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: 'Lora', serif;
     text-align: left;
+    width: 332px;  
+    height: 412px;  
 }
 
 /* Directions Heading */
@@ -54,7 +54,7 @@ body {
 /* Main text inside Directions Panel */
 .directions-container p {
     font-family: 'Lora', serif;
-    font-size: 12px;  /* Slightly larger for better readability */
+    font-size: 12px;  
     line-height: 1.5;
     margin-bottom: 8px;
 }
@@ -69,7 +69,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 450px;
+    width: 389px;  
+    height: 472px;  
 }
 
 /* Apply Italiana font for the main heading */
@@ -153,7 +154,7 @@ h1 {
 /* Highlight numbers when clicked */
 .highlight {
     border: 2px solid black !important;
-    background-color: #C5C6D0 !important;  /* Mint gray */
+    background-color: #C5C6D0 !important; 
 }
 
 /* Bold Borders to distinguish 3x3 sections */
@@ -168,5 +169,5 @@ h1 {
 /* Correct numbers appear bold */
 .correct {
     font-weight: bold;
-    color: #2E7D32; /* Dark green */
+    color: #2E7D32; 
 }
