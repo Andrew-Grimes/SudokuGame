@@ -4,15 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Game</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
 
-    <!-- Load PyScript -->
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-
-    <!-- PyScript Configuration -->
-    <py-config>
-        packages = []
-    </py-config>
+    <!-- Link JavaScript File -->
+    <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
     <div class="container">
@@ -29,22 +24,5 @@
         <div class="sudoku-board" id="sudoku-board"></div>
         <div class="strike-counter" id="strike-counter">Strikes: 0</div>
     </div>
-
-    <!-- PyScript Correct Placement -->
-    <py-script>
-        from js import document
-        from pyodide.http import pyfetch
-        from pyscript import when
-
-        async def fetch_sudoku():
-            """ Fetch the Sudoku board from Flask API and create the board """
-            difficulty = document.querySelector("#difficulty").value
-            response = await pyfetch(f"/start_game?difficulty={difficulty}", method="GET", headers={"Content-Type": "application/json"})
-            data = await response.json()
-            pyscript.run("create_board", data["board"], data["solution"])
-
-        when("click", "#startGameBtn", fetch_sudoku)
-    </py-script>
-
 </body>
 </html>
