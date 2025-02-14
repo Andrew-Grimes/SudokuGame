@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Game</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <!-- Load PyScript -->
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+    <!-- PyScript Configuration -->
+    <py-config>
+        packages = []
+    </py-config>
 </head>
 <body>
     <div class="container">
@@ -25,13 +30,12 @@
         <div class="strike-counter" id="strike-counter">Strikes: 0</div>
     </div>
 
-    <!-- PyScript Integration -->
+    <!-- PyScript Correct Placement -->
     <py-script>
-        # language=python
         from js import document
         from pyodide.http import pyfetch
         from pyscript import when
-        
+
         async def fetch_sudoku():
             """ Fetch the Sudoku board from Flask API and create the board """
             difficulty = document.querySelector("#difficulty").value
@@ -41,7 +45,6 @@
 
         when("click", "#startGameBtn", fetch_sudoku)
     </py-script>
-    
-    <py-script src="{{ url_for('static', filename='py/script.py') }}"></py-script>
+
 </body>
 </html>
