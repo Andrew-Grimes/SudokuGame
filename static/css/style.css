@@ -32,8 +32,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: 'Lora', serif;
     text-align: left;
-    width: 332px;  
-    height: 412px;  
+    width: 400px;  
+    height: 550px;  
 }
 
 /* Directions Heading */
@@ -69,8 +69,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 389px;  
-    height: 472px;  
+    width: 500px;  
+    height: 600px;  
 }
 
 /* Apply Italiana font for the main heading */
