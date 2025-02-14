@@ -55,7 +55,7 @@ def generate_puzzle(difficulty):
         for i in range(9)
     ]
 
-    return puzzle_with_meta, solution
+    return puzzle_with_meta, copy.deepcopy(solution)  # Return deep copy to avoid modification issues
 
 @app.route('/')
 def index():
@@ -91,4 +91,4 @@ def serve_pyscript(filename):
     return send_from_directory(safe_directory, filename)
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
