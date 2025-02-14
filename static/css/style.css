@@ -26,7 +26,7 @@ body {
 
 /* 🔹 Directions Panel - Now properly aligned to the left */
 .directions-container {
-    width: 400px;  
+    width: 600px;  
     height: auto;  
     background: #fff;
     padding: 20px;
