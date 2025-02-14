@@ -55,7 +55,7 @@ def generate_puzzle(difficulty):
         for i in range(9)
     ]
 
-    return puzzle_with_meta, copy.deepcopy(solution)  # Return deep copy to avoid modification issues
+    return puzzle_with_meta, solution  # Return deep copy to avoid modification issues
 
 @app.route('/')
 def index():
@@ -66,9 +66,15 @@ def index():
 def start_game():
     """Starts a new game with the selected difficulty."""
     difficulty = request.args.get('difficulty', 'medium')  # Default to medium if invalid
+    if difficulty not in ["easy", "medium", "hard"]:
+        return jsonify({"error": "Invalid difficulty level"}), 400  # Return 400 Bad Request
+
     board, solution = generate_puzzle(difficulty)
-    app.config['solution'] = copy.deepcopy(solution)  # Store a copy to prevent unintended changes
-    return jsonify({"board": board, "solution": solution})
+    
+    # Store a JSON-serializable copy of the solution
+    app.config['solution'] = [[cell for cell in row] for row in solution]
+
+    return jsonify({"board": board, "solution": app.config["solution"]})
 
 @app.route('/check_solution', methods=['POST'])
 def check_solution():
@@ -83,6 +89,14 @@ def check_solution():
         return jsonify({"correct": True})
     else:
         return jsonify({"correct": False})
+
+@app.route('/get_solution')
+def get_solution():
+    """Returns the stored solution for debugging purposes."""
+    solution = app.config.get('solution', None)
+    if solution is None:
+        return jsonify({"error": "No solution found. Start a game first!"}), 404
+    return jsonify({"solution": solution})
 
 @app.route('/static/py/<path:filename>')
 def serve_pyscript(filename):
