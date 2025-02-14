@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.controls button, .controls select {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.controls button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.controls button:hover {
+    background-color: #45a049;
+}
+
+.controls select {
+    background-color: #d1e0e0;
+}
+
+.strike-counter {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #ff3333;
+}
+
+.sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 40px);
+    grid-template-rows: repeat(9, 40px);
+    gap: 0;
+    border: 3px solid #000;
+}
+
+.sudoku-board input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #999;
+    outline: none;
+}
+
+.sudoku-board input:disabled {
+    background-color: #d3e0ea;
+    cursor: pointer;
+}
+
+.highlight {
+    border: 2px solid #000 !important;
+    background-color: #98FF98 !important;
+}
+
+.sudoku-board .bold-border-top {
+    border-top: 3px solid #000;
+}
+
+.sudoku-board .bold-border-left {
+    border-left: 3px solid #000;
+}
+
+.correct {
+    font-weight: bold;
+}
