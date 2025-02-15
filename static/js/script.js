@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function startGame() {
         const difficulty = document.getElementById("difficulty").value;
         strikes = 0;
-        strikeCounterElement.textContent = `Strikes: ${strikes}`;
+        strikeCounterElement.textContent = `${strikes}`; // Reset only the number
 
         resetTimer(); // Reset timer when a new game starts
         startTimer(); // Start timer
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             input.value = "";
             strikes++;
-            strikeCounterElement.textContent = `Strikes: ${strikes}`;
+            strikeCounterElement.textContent = `${strikes}`; // Update only the number
         }
     }
 
