@@ -130,12 +130,20 @@ body {
     border: none;
     border-top: 4px solid black;
     position: relative;
-    bottom: -20px;
+    bottom: -18px;
+}
+
+/* 🔹 Settings Title Styling - Matches "Directions" */
+.settings-container h2 {
+    font-family: 'Italiana', sans-serif; /* Ensures correct font */
+    font-size: 32px; /* Matches "Directions" title size */
+    text-align: center;
+    margin-bottom: 10px; /* Ensures same spacing as "Directions" title */
 }
 
 /* 🔹 Timer Wrapper (Ensures Proper Positioning) */
 .timer-wrapper {
-    margin-top: 20px; /* Ensures space between title and timer */
+    margin-top: -350px; /* Ensures space between title and timer */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -144,38 +152,46 @@ body {
 
 /* 🔹 Timer Box Styling */
 .timer-box {
-    width: 200px;
-    height: 60px;
+    width: 180px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #E0E0E0;
     border: 2px solid #333;
     border-radius: 5px;
-    padding: 10px;
+    padding: 12px;
 }
 
 /* 🔹 Timer Text Styling */
 #timer {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: #000;
 }
 
 /* 🔹 Pause Button Styling */
 .pause-button {
-    padding: 5px 10px;
-    font-size: 16px;
-    background-color: #007BFF;
-    color: white;
+    padding: 8px 10px;
+    font-size: 22px;
+    background: none;
+    color: black;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 🔹 Pause Button Icon Spacing */
-.pause-button .fa-pause {
+.pause-button i {
+    width: 20px;
     margin-right: 5px;
+}
+
+/* 🔹 Prevents the Button from Moving Left/Right When Clicked */
+.pause-button:focus {
+    outline: none;
 }
 
 /* 🔹 Sudoku Game Container */
