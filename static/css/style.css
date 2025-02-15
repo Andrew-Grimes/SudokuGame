@@ -58,6 +58,15 @@ body {
     margin-top: -12px;
 }
 
+/* 🔹 Bottom Line in Directions Panel (Same as top line) */
+.directions-bottom-line {
+    width: 97%;
+    border: none;
+    border-top: 4px solid black;
+    position: relative;
+    bottom: -18px;
+}
+
 /* 🔹 Increase Directions Title Size & Align Spacing */
 .directions-container h2 {
     font-family: 'Italiana', sans-serif;
@@ -79,8 +88,94 @@ body {
 .directions-container p {
     font-family: 'Lora', serif;
     font-size: 12px;
-    line-height: 1.1; /* Reduced from 1.2 */
-    margin-bottom: 2px; /* Reduced from 4px */
+    line-height: 1.1;
+    margin-bottom: 2px;
+}
+
+/* 🔹 Settings Container */
+.settings-container {
+    background: #fff;
+    padding: 20px;
+    font-family: 'Lora', serif;
+    text-align: center;
+    width: 400px;
+    height: 550px;
+    border: 1px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 🔹 Settings Header Wrapper */
+.settings-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* 🔹 Top Line in Settings Panel */
+.settings-top-line {
+    width: 97%;
+    border: none;
+    border-top: 4px solid black;
+    position: relative;
+    margin-top: -12px;
+}
+
+/* 🔹 Bottom Line in Settings Panel */
+.settings-bottom-line {
+    width: 97%;
+    border: none;
+    border-top: 4px solid black;
+    position: relative;
+    bottom: -20px;
+}
+
+/* 🔹 Timer Wrapper (Ensures Proper Positioning) */
+.timer-wrapper {
+    margin-top: 20px; /* Ensures space between title and timer */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Allows for flexible positioning */
+}
+
+/* 🔹 Timer Box Styling */
+.timer-box {
+    width: 200px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #E0E0E0;
+    border: 2px solid #333;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* 🔹 Timer Text Styling */
+#timer {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* 🔹 Pause Button Styling */
+.pause-button {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 🔹 Pause Button Icon Spacing */
+.pause-button .fa-pause {
+    margin-right: 5px;
 }
 
 /* 🔹 Sudoku Game Container */
@@ -205,10 +300,4 @@ h1 {
 
 .sudoku-board .bold-border-left {
     border-left: 4px solid #000;
-}
-
-/* Correct numbers appear bold */
-.correct {
-    font-weight: bold;
-    color: #2E7D32;
 }
