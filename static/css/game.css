@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 500px;
+    width: 525px;
     height: 600px;
     border: 1px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -112,4 +112,36 @@ h1 {
 
 .sudoku-board .bold-border-left {
     border-left: 4px solid #000;
+}
+
+/* 🔹 Number Selection Panel */
+.number-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 17px;/* Adjust spacing between board and panel */
+}
+
+/* 🔹 Number Buttons */
+.number-selection button {
+    width: 40px;  /* Matches Sudoku grid cell size */
+    height: 40px;
+    font-size: 18px;
+    font-family: 'Lora', serif; /* Match Sudoku grid font */
+    font-weight: normal; /* Remove bold */
+    text-align: center;
+    border: 1px solid #333;
+    background-color: #E0E0E0; /* Slight gray highlight */
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* 🔹 Hover and Active Effects */
+.number-selection button:hover {
+    background-color: #ddd;
+}
+
+.number-selection button:active {
+    background-color: #bbb;
 }
