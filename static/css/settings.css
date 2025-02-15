@@ -1,0 +1,115 @@
+/* 🔹 Settings Container */
+.settings-container {
+    background: #fff;
+    padding: 20px;
+    font-family: 'Lora', serif;
+    text-align: center;
+    width: 400px;
+    height: 550px;
+    border: 1px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 🔹 Settings Header */
+.settings-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* 🔹 Top Line in Settings Panel */
+.settings-top-line {
+    width: 97%;
+    border: none;
+    border-top: 4px solid black;
+    position: relative;
+    margin-top: -12px;
+}
+
+/* 🔹 Bottom Line in Settings Panel */
+.settings-bottom-line {
+    width: 97%;
+    border: none;
+    border-top: 4px solid black;
+    position: relative;
+    bottom: -18px;
+}
+
+/* 🔹 Settings Title */
+.settings-container h2 {
+    font-family: 'Italiana', sans-serif;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* 🔹 Timer & Strike Counter Section */
+.timer-strike-wrapper {
+    margin-top: -200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+/* 🔹 Timer & Strike Box */
+.timer-box, .strike-counter-box {
+    width: 160px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #E0E0E0;
+    border: 2px solid #333;
+    padding: 10px;
+}
+
+/* 🔹 Timer Text */
+#timer {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* 🔹 Pause Button */
+.pause-button {
+    padding: 5px 8px;
+    font-size: 20px;
+    background: none;
+    color: black;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🔹 Pause Button Icon Spacing */
+.pause-button i {
+    width: 20px;
+    margin-right: 5px;
+}
+
+/* 🔹 Prevents the Button from Moving Left/Right When Clicked */
+.pause-button:focus {
+    outline: none;
+}
+
+/* 🔹 Strike Counter Text */
+.strike-counter-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    font-family: 'Lora', serif;
+}
+
+/* 🔹 Strike Counter Number */
+#strike-counter {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
