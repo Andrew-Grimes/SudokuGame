@@ -49,7 +49,7 @@
 
 /* 🔹 Timer & Strike Counter Section */
 .timer-strike-wrapper {
-    margin-top: -200px;
+    margin-top: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
