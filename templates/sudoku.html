@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Game</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
+
+    <!-- Import Global and Section-Specific CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/directions.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
 
     <!-- Link JavaScript File -->
     <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
@@ -57,7 +62,19 @@
                 <button id="startGameBtn">Start Game</button>
             </div>
             <div class="sudoku-board" id="sudoku-board"></div>
-            <div class="strike-counter" id="strike-counter">Strikes: 0</div>
+
+            <!-- 🔹 Number Selection Panel -->
+            <div class="number-selection">
+                <button class="num-btn" data-num="1">1</button>
+                <button class="num-btn" data-num="2">2</button>
+                <button class="num-btn" data-num="3">3</button>
+                <button class="num-btn" data-num="4">4</button>
+                <button class="num-btn" data-num="5">5</button>
+                <button class="num-btn" data-num="6">6</button>
+                <button class="num-btn" data-num="7">7</button>
+                <button class="num-btn" data-num="8">8</button>
+                <button class="num-btn" data-num="9">9</button>
+            </div>
         </div>
 
         <!-- Settings Panel -->
@@ -67,12 +84,19 @@
                 <h2>Settings</h2>
             </div>
 
-            <!-- 🔹 Timer Display (Centered, Properly Positioned) -->
-            <div class="timer-wrapper">
+            <!-- Timer & Strike Counter Section -->
+            <div class="timer-strike-wrapper">
+                <!-- 🔹 Strike Counter (Now on the left) -->
+                <div class="strike-counter-box">
+                    <p class="strike-counter-text">Strikes:</p>
+                    <span id="strike-counter">0</span>
+                </div>
+
+                <!-- 🔹 Timer Display (Now on the right) -->
                 <div class="timer-box">
                     <div id="timer">00:00</div>
                     <button id="pauseBtn" class="pause-button">
-                        <i class="fas fa-pause"></i> <!-- Only Icon, No Text -->
+                        <i class="fas fa-pause"></i>
                     </button>
                 </div>
             </div>
@@ -80,10 +104,10 @@
             <hr class="settings-bottom-line">
         </div>
 
-        <!-- FontAwesome for Pause Button Icon -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-
     </div>
+
+    <!-- FontAwesome for Pause Button Icon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 
 </body>
 </html>
