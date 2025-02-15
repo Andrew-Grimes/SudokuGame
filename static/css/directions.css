@@ -9,6 +9,7 @@
     border: 1px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
+    flex-direction: column;
 }
 
 /* 🔹 Directions Header */
@@ -34,7 +35,7 @@
     border: none;
     border-top: 4px solid black;
     position: relative;
-    bottom: -18px;
+    bottom: -44px;
 }
 
 /* 🔹 Directions Title */
