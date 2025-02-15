@@ -2,8 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const boardElement = document.getElementById("sudoku-board");
     const strikeCounterElement = document.getElementById("strike-counter");
     const startGameBtn = document.getElementById("startGameBtn");
+    const timerElement = document.getElementById("timer");
+    const pauseBtn = document.getElementById("pauseBtn"); // Pause button
+    
     let solution = [];
     let strikes = 0;
+    let timerInterval;
+    let secondsElapsed = 0;
+    let isPaused = false;
 
     function createBoard(board, solvedBoard) {
         boardElement.innerHTML = ""; // Clear the board before rendering
@@ -43,6 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
         strikes = 0;
         strikeCounterElement.textContent = `Strikes: ${strikes}`;
 
+        resetTimer(); // Reset timer when a new game starts
+        startTimer(); // Start timer
+        isPaused = false;
+        pauseBtn.innerHTML = `<i class="fas fa-pause"></i>`; // Default to pause icon
+
         fetch(`/start_game?difficulty=${difficulty}`)
             .then(response => response.json())
             .then(data => {
@@ -63,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (parseInt(value) === solution[row][col]) {
-            input.classList.add("correct");
             input.disabled = true;
             input.addEventListener("click", () => highlightNumbers(value));
         } else {
@@ -84,12 +94,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.addEventListener("click", event => {
-        if (!event.target.matches("input:disabled, .correct")) {
+        if (!event.target.matches("input:disabled")) {
             document.querySelectorAll(".sudoku-board input").forEach(input => {
                 input.classList.remove("highlight");
             });
         }
     });
 
+    /* Timer Functions */
+    function formatTime(time) {
+        let mins = Math.floor(time / 60);
+        let secs = time % 60;
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+        secondsElapsed = 0;
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (!isPaused) {
+                secondsElapsed++;
+                timerElement.textContent = formatTime(secondsElapsed);
+            }
+        }, 1000);
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        secondsElapsed = 0;
+        timerElement.textContent = "00:00";
+    }
+
+    function togglePause() {
+        isPaused = !isPaused;
+        pauseBtn.innerHTML = isPaused
+            ? `<i class="fas fa-play"></i>` // Play icon when paused
+            : `<i class="fas fa-pause"></i>`; // Pause icon when running
+    }
+
     startGameBtn.addEventListener("click", startGame);
+    pauseBtn.addEventListener("click", togglePause);
 });
