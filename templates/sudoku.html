@@ -26,17 +26,19 @@
 
             <h3>Placing Numbers</h3>
             <p>&bull; Click on an empty square and enter a number (1-9).</p>
-            <p>&bull; If the number is correct, it remains bolded.</p>
+            <p>&bull; If the number is correct, it is added to the puzzle.</p>
             <p>&bull; If the number is incorrect, it is removed, and a strike is added.</p>
 
             <h3>Highlighting</h3>
-            <p>&bull; Click on a pre-filled number, and all visible instances of that number will be highlighted with a mint gray background and bold black border.</p>
+            <p>&bull; Click on a pre-filled number, and all visible instances of that number will be highlighted.</p>
             <p>&bull; This helps track numbers easily across the board.</p>
 
             <h3>Winning the Game</h3>
             <p>&bull; The puzzle is complete when all cells are correctly filled.</p>
             <p>&bull; Click Check Solution to verify your answers.</p>
             <p>&bull; If all numbers are correct, you win the game!</p>
+
+            <hr class="directions-bottom-line"> 
         </div>
 
         <!-- Sudoku Game Container -->
@@ -57,8 +59,30 @@
             <div class="sudoku-board" id="sudoku-board"></div>
             <div class="strike-counter" id="strike-counter">Strikes: 0</div>
         </div>
-        
-    </div>
 
-</body>
-</html>
+        <!-- Settings Panel -->
+        <div class="settings-container">
+            <div class="settings-header">
+                <hr class="settings-top-line">
+                <h2>Settings</h2>
+            </div>
+
+            <!-- 🔹 Timer Display (Centered, Properly Positioned) -->
+            <div class="timer-wrapper">
+                <div class="timer-box">
+                    <div id="timer">00:00</div>
+                    <button id="pauseBtn" class="pause-button">
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                </div>
+            </div>
+
+            <hr class="settings-bottom-line">
+        </div>
+
+        <!-- FontAwesome for Pause Button Icon -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+
+
+
