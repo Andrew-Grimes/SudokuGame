@@ -36,7 +36,7 @@
 
             <h3>Highlighting</h3>
             <p>&bull; Click on a pre-filled number, and all visible instances of that number will be highlighted.</p>
-            <p>&bull; This helps track numbers easily across the board.</p>
+            <p>&bull; Click a number below the puzzle to highlight all occurrences in the puzzle.</p>
 
             <h3>Winning the Game</h3>
             <p>&bull; The puzzle is complete when all cells are correctly filled.</p>
@@ -64,7 +64,7 @@
             <div class="sudoku-board" id="sudoku-board"></div>
 
             <!-- 🔹 Number Selection Panel -->
-            <div class="number-selection">
+            <div id="number-buttons" class="number-selection">
                 <button class="num-btn" data-num="1">1</button>
                 <button class="num-btn" data-num="2">2</button>
                 <button class="num-btn" data-num="3">3</button>
@@ -104,6 +104,16 @@
             <hr class="settings-bottom-line">
         </div>
 
+    </div>
+
+    <!-- ✅ Win Modal for Completion Screen -->
+    <div id="win-modal" class="win-modal">
+        <div class="win-content">
+            <button id="closeWinModal" class="close-btn">&times;</button>
+            <h2 id="win-message"></h2>
+            <p id="win-details"></p>
+            <button id="playAgainBtn">Play Again</button>
+        </div>
     </div>
 
     <!-- FontAwesome for Pause Button Icon -->
