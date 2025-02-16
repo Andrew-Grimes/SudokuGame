@@ -3,17 +3,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const strikeCounterElement = document.getElementById("strike-counter");
     const startGameBtn = document.getElementById("startGameBtn");
     const timerElement = document.getElementById("timer");
-    const pauseBtn = document.getElementById("pauseBtn"); // Pause button
-    
+    const pauseBtn = document.getElementById("pauseBtn");
+    const numButtons = document.querySelectorAll(".num-btn");
+    const winModal = document.getElementById("win-modal");
+    const winMessage = document.getElementById("win-message");
+    const winDetails = document.getElementById("win-details");
+    const closeWinModalBtn = document.getElementById("closeWinModal");
+    const playAgainBtn = document.getElementById("playAgainBtn");
+
     let solution = [];
     let strikes = 0;
     let timerInterval;
     let secondsElapsed = 0;
     let isPaused = false;
+    let selectedNumber = null;
+    let numberCounts = {};
 
     function createBoard(board, solvedBoard) {
-        boardElement.innerHTML = ""; // Clear the board before rendering
+        boardElement.innerHTML = "";
         solution = solvedBoard;
+        numberCounts = {};
 
         for (let i = 0; i < 9; i++) {
             for (let j = 0; j < 9; j++) {
@@ -27,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     input.value = board[i][j].value;
                     input.disabled = true;
                     input.classList.add("prefilled");
-                    input.addEventListener("click", () => highlightNumbers(input.value));
+                    numberCounts[input.value] = (numberCounts[input.value] || 0) + 1;
                 } else {
                     input.addEventListener("input", handleInput);
                 }
@@ -42,17 +51,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 boardElement.appendChild(input);
             }
         }
+
+        updateNumberButtons();
     }
 
     function startGame() {
         const difficulty = document.getElementById("difficulty").value;
         strikes = 0;
-        strikeCounterElement.textContent = `${strikes}`; // Reset only the number
+        strikeCounterElement.textContent = `${strikes}`;
 
-        resetTimer(); // Reset timer when a new game starts
-        startTimer(); // Start timer
+        resetTimer();
+        startTimer();
         isPaused = false;
-        pauseBtn.innerHTML = `<i class="fas fa-pause"></i>`; // Default to pause icon
+        pauseBtn.innerHTML = `<i class="fas fa-pause"></i>`;
+
+        // ✅ Reset Number Buttons (Removes Crossed-Out State)
+        numButtons.forEach(button => {
+            button.classList.remove("selected-num", "crossed-out");
+            button.disabled = false;
+        });
+
+        selectedNumber = null;
+
+        // ✅ Remove any existing highlights
+        document.querySelectorAll(".sudoku-board input").forEach(input => {
+            input.classList.remove("highlight");
+        });
+
+        // ✅ Hide the win modal if it's open
+        winModal.style.display = "none";
 
         fetch(`/start_game?difficulty=${difficulty}`)
             .then(response => response.json())
@@ -75,31 +102,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (parseInt(value) === solution[row][col]) {
             input.disabled = true;
-            input.addEventListener("click", () => highlightNumbers(value));
+            numberCounts[value] = (numberCounts[value] || 0) + 1;
+            updateNumberButtons();
+            checkCompletion();
+            if (selectedNumber === value) {
+                highlightNumbers(value);
+            }
         } else {
             input.value = "";
             strikes++;
-            strikeCounterElement.textContent = `${strikes}`; // Update only the number
+            strikeCounterElement.textContent = `${strikes}`;
         }
     }
 
     function highlightNumbers(number) {
         const inputs = document.querySelectorAll(".sudoku-board input");
+        inputs.forEach(input => input.classList.remove("highlight"));
+        numButtons.forEach(btn => btn.classList.remove("highlight", "selected-num"));
+
+        if (!number) return;
+
         inputs.forEach(input => {
-            input.classList.remove("highlight");
-            if (input.value == number) {
+            if (input.value === number) {
                 input.classList.add("highlight");
+            }
+        });
+
+        numButtons.forEach(btn => {
+            if (btn.dataset.num === number && !btn.classList.contains("crossed-out")) {
+                btn.classList.add("selected-num");
             }
         });
     }
 
-    document.addEventListener("click", event => {
-        if (!event.target.matches("input:disabled")) {
-            document.querySelectorAll(".sudoku-board input").forEach(input => {
-                input.classList.remove("highlight");
-            });
+    function updateNumberButtons() {
+        Object.keys(numberCounts).forEach(num => {
+            if (numberCounts[num] === 9) {
+                const btn = document.querySelector(`.num-btn[data-num="${num}"]`);
+                if (btn) {
+                    btn.classList.add("crossed-out");
+                    btn.disabled = true;
+                    btn.classList.remove("selected-num");
+                }
+            }
+        });
+    }
+
+    function checkCompletion() {
+        const inputs = document.querySelectorAll(".sudoku-board input");
+        let allFilled = true;
+        
+        inputs.forEach(input => {
+            if (!input.disabled || input.value === "") {
+                allFilled = false;
+            }
+        });
+
+        if (allFilled) {
+            clearInterval(timerInterval);
+            showWinScreen();
         }
-    });
+    }
+
+    function showWinScreen() {
+        const difficulty = document.getElementById("difficulty").value;
+        const formattedDifficulty = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+
+        winMessage.innerHTML = `🎉 Congrats! You beat <u>${formattedDifficulty}</u> mode!`;
+        winDetails.textContent = `Final Time: ${timerElement.textContent} | Strikes: ${strikes}`;
+
+        winModal.style.display = "flex"; // Show modal
+    }
+
+    function closeWinScreen() {
+        winModal.style.display = "none";
+    }
 
     /* Timer Functions */
     function formatTime(time) {
@@ -128,10 +205,25 @@ document.addEventListener("DOMContentLoaded", () => {
     function togglePause() {
         isPaused = !isPaused;
         pauseBtn.innerHTML = isPaused
-            ? `<i class="fas fa-play"></i>` // Play icon when paused
-            : `<i class="fas fa-pause"></i>`; // Pause icon when running
+            ? `<i class="fas fa-play"></i>`
+            : `<i class="fas fa-pause"></i>`;
     }
+
+    numButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button.classList.contains("crossed-out")) return;
+            if (selectedNumber === button.dataset.num) {
+                selectedNumber = null;
+                highlightNumbers(null);
+            } else {
+                selectedNumber = button.dataset.num;
+                highlightNumbers(selectedNumber);
+            }
+        });
+    });
 
     startGameBtn.addEventListener("click", startGame);
     pauseBtn.addEventListener("click", togglePause);
+    closeWinModalBtn.addEventListener("click", closeWinScreen);
+    playAgainBtn.addEventListener("click", startGame);
 });
