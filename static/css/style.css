@@ -49,3 +49,49 @@ body {
     border: 1px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* ✅ Win Modal */
+.win-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    border: 2px solid black;
+    z-index: 1000; /* Ensures it appears above everything */
+}
+
+/* ✅ Win Modal Content */
+.win-content h2 {
+    font-family: 'Italiana', sans-serif;
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-decoration: underline; /* Makes difficulty text underlined */
+}
+
+/* ✅ Close Button (X) */
+.close-btn {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* ✅ Play Again Button */
+#playAgainBtn {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
