@@ -354,4 +354,3 @@ document.addEventListener("DOMContentLoaded", () => {
     closeWinModalBtn.addEventListener("click", closeWinScreen);
     playAgainBtn.addEventListener("click", startGame);
 });
-  
