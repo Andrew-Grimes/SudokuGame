@@ -353,4 +353,5 @@ document.addEventListener("DOMContentLoaded", () => {
     pauseBtn.addEventListener("click", togglePause);
     closeWinModalBtn.addEventListener("click", closeWinScreen);
     playAgainBtn.addEventListener("click", startGame);
+    updateLeaderboardDisplay();
 });
