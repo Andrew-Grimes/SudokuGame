@@ -1,11 +1,16 @@
-/* 🔹 Settings Container */
+/*
+  Sudoku Project - settings.css
+  Description: This stylesheet defines the styles for the settings panel of the Sudoku project. It covers the container layout, header, timer and strike counter section, pause button, and leaderboard display.
+*/
+
+/* Settings Container: Styles the main settings panel with a fixed width, height, padding, centered content, and a subtle box shadow. */
 .settings-container {
     background: #fff;
     padding: 20px;
     font-family: 'Lora', serif;
     text-align: center;
-    width: 400px;
-    height: 550px;
+    width: 400px; /* Fixed width */
+    height: 550px; /* Matches game container */
     border: 1px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -14,14 +19,14 @@
     align-items: center;
 }
 
-/* 🔹 Settings Header */
+/* Settings Header: Centers the header area within the settings panel. */
 .settings-header {
     width: 100%;
     text-align: center;
     margin-bottom: 10px;
 }
 
-/* 🔹 Top Line in Settings Panel */
+/* Top Line in Settings Panel: Adds a decorative horizontal line near the top of the settings panel. */
 .settings-top-line {
     width: 97%;
     border: none;
@@ -30,7 +35,7 @@
     margin-top: -12px;
 }
 
-/* 🔹 Bottom Line in Settings Panel */
+/* Bottom Line in Settings Panel: Adds a decorative horizontal line near the bottom of the settings panel. */
 .settings-bottom-line {
     width: 97%;
     border: none;
@@ -39,7 +44,7 @@
     bottom: -18px;
 }
 
-/* 🔹 Settings Title */
+/* Settings Title: Styles the h2 title within the settings container using a decorative font and centered text. */
 .settings-container h2 {
     font-family: 'Italiana', sans-serif;
     font-size: 32px;
@@ -47,7 +52,7 @@
     margin-bottom: 10px;
 }
 
-/* 🔹 Timer & Strike Counter Section */
+/* Timer & Strike Counter Section: Arranges the timer and strike counter elements side by side with spacing. */
 .timer-strike-wrapper {
     margin-top: 0px;
     display: flex;
@@ -56,7 +61,7 @@
     gap: 20px;
 }
 
-/* 🔹 Timer & Strike Box */
+/* Timer & Strike Box: Styles both the timer and strike counter boxes with consistent dimensions, background, and border. */
 .timer-box, .strike-counter-box {
     width: 160px;
     height: 48px;
@@ -68,14 +73,14 @@
     padding: 10px;
 }
 
-/* 🔹 Timer Text */
+/* Timer Text: Styles the timer display with bold, large text for clear visibility. */
 #timer {
     font-size: 20px;
     font-weight: bold;
     color: #000;
 }
 
-/* 🔹 Pause Button */
+/* Pause Button: Styles the pause button with padding, no border, and centers its content for better usability. */
 .pause-button {
     padding: 5px 8px;
     font-size: 20px;
@@ -88,18 +93,18 @@
     justify-content: center;
 }
 
-/* 🔹 Pause Button Icon Spacing */
+/* Pause Button Icon Spacing: Provides spacing for icons within the pause button for balanced design. */
 .pause-button i {
     width: 20px;
     margin-right: 5px;
 }
 
-/* 🔹 Prevents the Button from Moving Left/Right When Clicked */
+/* Pause Button Focus: Removes the outline when the pause button is focused to prevent layout shifts. */
 .pause-button:focus {
     outline: none;
 }
 
-/* 🔹 Strike Counter Text */
+/* Strike Counter Text: Styles the text label for the strike counter with bold and clear typography. */
 .strike-counter-text {
     font-size: 18px;
     font-weight: bold;
@@ -107,9 +112,59 @@
     font-family: 'Lora', serif;
 }
 
-/* 🔹 Strike Counter Number */
+/* Strike Counter Number: Emphasizes the strike count number with bold, prominent text. */
 #strike-counter {
     font-size: 20px;
     font-weight: bold;
     color: black;
+}
+
+/* Leaderboard Container: Organizes the leaderboard sections in a vertically stacked layout, centered within the container. */
+.leaderboard-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack leaderboards vertically */
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Individual Leaderboard Section: Styles each leaderboard section with centered text, a set width, and spacing between sections. */
+.leaderboard-section {
+    width: 95%; /* Wider sections since we have more space */
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 10px; /* Space between each leaderboard */
+}
+
+/* Leaderboard Titles: Styles the titles in each leaderboard section with an underline for emphasis. */
+.leaderboard-section h4 {
+    font-size: 15px;
+    text-decoration: underline;
+    margin-bottom: 5px;
+}
+
+/* Leaderboard Tables: Sets the table layout for leaderboard data with collapsed borders and a compact font size. */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+/* Table Headers: Styles the header cells of the leaderboard table with a distinct background color, padding, and bottom border. */
+.leaderboard-table th {
+    background-color: #F5E6CA;
+    padding: 5px;
+    border-bottom: 2px solid black;
+}
+
+/* Table Rows: Styles the table cells in the leaderboard with padding and a light bottom border for separation. */
+.leaderboard-table td {
+    padding: 4px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Leaderboard Container Table: Limits the table height within the leaderboard container and enables vertical scrolling when necessary. */
+.leaderboard-container table {
+    max-height: 150px;
+    overflow-y: auto;
 }
