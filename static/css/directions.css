@@ -1,4 +1,9 @@
-/* 🔹 Directions Panel */
+/*
+  Sudoku Project - directions.css
+  Description: This stylesheet defines the styles for the directions panel in the Sudoku project interface. It covers the container, header layout, decorative lines, title, subheaders, and text styling.
+*/
+
+/* Directions Panel: Container for the directions information with a white background, padding, border, and box shadow for a clean look */
 .directions-container {
     background: #fff;
     padding: 20px;
@@ -12,7 +17,7 @@
     flex-direction: column;
 }
 
-/* 🔹 Directions Header */
+/* Directions Header: Centers the header content with a margin for separation */
 .directions-header {
     position: relative;
     width: 100%;
@@ -20,7 +25,7 @@
     margin-bottom: 10px;
 }
 
-/* 🔹 Top Line in Directions Panel (90% width of container) */
+/* Top Line in Directions Panel: Creates a decorative horizontal line near the top for visual emphasis */
 .directions-top-line {
     width: 97%;
     border: none;
@@ -29,7 +34,7 @@
     margin-top: -12px;
 }
 
-/* 🔹 Bottom Line in Directions Panel (Same as top line) */
+/* Bottom Line in Directions Panel: Mirrors the top line to provide a balanced visual element at the bottom */
 .directions-bottom-line {
     width: 97%;
     border: none;
@@ -38,7 +43,7 @@
     bottom: -30px;
 }
 
-/* 🔹 Directions Title */
+/* Directions Title: Styles the main title (h2) within the directions panel using a decorative font and centered text */
 .directions-container h2 {
     font-family: 'Italiana', sans-serif;
     font-size: 32px;
@@ -46,7 +51,7 @@
     margin-bottom: 10px;
 }
 
-/* 🔹 Subheaders */
+/* Subheaders: Styles h3 elements for section headings within the directions panel with underline decoration */
 .directions-container h3 {
     font-size: 14px;
     text-decoration: underline;
@@ -54,7 +59,7 @@
     margin-bottom: 2px;
 }
 
-/* 🔹 Directions Text */
+/* Directions Text: Styles paragraph text in the directions panel with a small font size and tight line spacing */
 .directions-container p {
     font-size: 12px;
     line-height: 1.1;
