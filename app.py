@@ -5,11 +5,33 @@ game initialization, solution verification, and secure serving of static PyScrip
 """
 
 from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask_sqlalchemy import SQLAlchemy
 import random
 import copy
 import os
 
 app = Flask(__name__, static_url_path='/static', static_folder='static', template_folder='templates')
+
+# SQLAlchemy configuration for persistent leaderboard
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///leaderboard.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+class LeaderboardEntry(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    difficulty = db.Column(db.String(10), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    time = db.Column(db.String(10), nullable=False)
+    strikes = db.Column(db.Integer, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "difficulty": self.difficulty,
+            "name": self.name,
+            "time": self.time,
+            "strikes": self.strikes
+        }
 
 # fill_board Function: Recursively fills a Sudoku board using backtracking.
 def fill_board(board):
@@ -118,5 +140,49 @@ def serve_pyscript(filename):
     safe_directory = os.path.join(app.static_folder, 'py')
     return send_from_directory(safe_directory, filename)
 
+# update_leaderboard Route: Receives a leaderboard entry and updates the persistent leaderboard.
+@app.route('/update_leaderboard', methods=['POST'])
+def update_leaderboard():
+    data = request.json
+    difficulty = data.get('difficulty')
+    name = data.get('name')
+    time_value = data.get('time')
+    strikes = data.get('strikes')
+
+    if not (difficulty and name and time_value is not None and strikes is not None):
+        return jsonify({"error": "Missing data"}), 400
+
+    new_entry = LeaderboardEntry(
+        difficulty=difficulty,
+        name=name,
+        time=time_value,
+        strikes=strikes
+    )
+    db.session.add(new_entry)
+    db.session.commit()
+
+    # Trim the leaderboard: Keep only the top 5 entries per difficulty.
+    entries = LeaderboardEntry.query.filter_by(difficulty=difficulty).order_by(
+        LeaderboardEntry.strikes, LeaderboardEntry.time
+    ).all()
+    if len(entries) > 5:
+        for entry in entries[5:]:
+            db.session.delete(entry)
+        db.session.commit()
+
+    return jsonify({"success": True})
+
+# get_leaderboard Route: Fetches the persistent leaderboard data for all difficulties.
+@app.route('/get_leaderboard')
+def get_leaderboard():
+    leaderboard = {"easy": [], "medium": [], "hard": []}
+    for diff in ["easy", "medium", "hard"]:
+        entries = LeaderboardEntry.query.filter_by(difficulty=diff).order_by(
+            LeaderboardEntry.strikes, LeaderboardEntry.time
+        ).all()
+        leaderboard[diff] = [entry.to_dict() for entry in entries]
+    return jsonify({"leaderboard": leaderboard})
+
 if __name__ == '__main__':
+    db.create_all()
     app.run(debug=True, host='0.0.0.0')
