@@ -1,3 +1,9 @@
+"""
+Sudoku Project - app.py
+Description: Flask application for serving the Sudoku game. This script handles board generation,
+game initialization, solution verification, and secure serving of static PyScript files.
+"""
+
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import random
 import copy
@@ -5,6 +11,7 @@ import os
 
 app = Flask(__name__, static_url_path='/static', static_folder='static', template_folder='templates')
 
+# fill_board Function: Recursively fills a Sudoku board using backtracking.
 def fill_board(board):
     """Recursively fills a Sudoku board using backtracking."""
     numbers = list(range(1, 10))
@@ -21,6 +28,7 @@ def fill_board(board):
                 return False
     return True
 
+# is_valid Function: Checks if a number placement is valid according to Sudoku rules.
 def is_valid(board, row, col, num):
     """Checks if a number placement is valid in Sudoku rules."""
     for i in range(9):
@@ -33,6 +41,7 @@ def is_valid(board, row, col, num):
                 return False
     return True
 
+# generate_puzzle Function: Generates a Sudoku puzzle by removing numbers from a fully solved board based on difficulty.
 def generate_puzzle(difficulty):
     """Generates a Sudoku puzzle by removing numbers from a completed board."""
     board = [[0 for _ in range(9)] for _ in range(9)]
@@ -55,13 +64,15 @@ def generate_puzzle(difficulty):
         for i in range(9)
     ]
 
-    return puzzle_with_meta, solution  # Return deep copy to avoid modification issues
+    return puzzle_with_meta, solution
 
+# index Route: Renders the main Sudoku game page.
 @app.route('/')
 def index():
     """Renders the main Sudoku game page."""
     return render_template('sudoku.html')
 
+# start_game Route: Initializes a new game with the specified difficulty and returns the puzzle and solution as JSON.
 @app.route('/start_game')
 def start_game():
     """Starts a new game with the selected difficulty."""
@@ -76,6 +87,7 @@ def start_game():
 
     return jsonify({"board": board, "solution": app.config["solution"]})
 
+# check_solution Route: Verifies if the submitted board matches the stored solution.
 @app.route('/check_solution', methods=['POST'])
 def check_solution():
     """Checks if the submitted board matches the solution."""
@@ -90,6 +102,7 @@ def check_solution():
     else:
         return jsonify({"correct": False})
 
+# get_solution Route: Provides the stored solution for debugging purposes.
 @app.route('/get_solution')
 def get_solution():
     """Returns the stored solution for debugging purposes."""
@@ -98,6 +111,7 @@ def get_solution():
         return jsonify({"error": "No solution found. Start a game first!"}), 404
     return jsonify({"solution": solution})
 
+# serve_pyscript Route: Serves PyScript Python files securely from the designated static directory.
 @app.route('/static/py/<path:filename>')
 def serve_pyscript(filename):
     """Serves PyScript Python files securely."""
