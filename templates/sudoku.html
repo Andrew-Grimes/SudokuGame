@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Head Section: Contains meta tags, title, and links to external CSS and JavaScript files -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Game</title>
@@ -16,10 +18,10 @@
 </head>
 <body>
 
-    <!-- Main Layout Container -->
+    <!-- Main Layout Container: Houses the primary sections of the interface -->
     <div class="page-container">
         
-        <!-- Directions Panel -->
+        <!-- Directions Panel: Provides instructions and guidelines for playing the game -->
         <div class="directions-container">
             <div class="directions-header">
                 <hr class="directions-top-line">
@@ -46,12 +48,14 @@
             <hr class="directions-bottom-line"> 
         </div>
 
-        <!-- Sudoku Game Container -->
+        <!-- Sudoku Game Container: Main gameplay area including header, controls, board, and number selection panel -->
         <div class="game-container">
             <div class="game-header">
                 <hr class="top-line"> 
                 <h1>Sudoku Game</h1>
             </div>
+
+            <!-- Game Controls: Allows selection of difficulty and game initiation -->
             <div class="controls">
                 <label for="difficulty">Select Difficulty:</label>
                 <select id="difficulty">
@@ -61,9 +65,11 @@
                 </select>
                 <button id="startGameBtn">Start Game</button>
             </div>
+
+            <!-- Sudoku Board: Container where the puzzle cells will be rendered -->
             <div class="sudoku-board" id="sudoku-board"></div>
 
-            <!-- 🔹 Number Selection Panel -->
+            <!-- Number Selection Panel: Provides buttons for selecting numbers (1-9) to input into the puzzle -->
             <div id="number-buttons" class="number-selection">
                 <button class="num-btn" data-num="1">1</button>
                 <button class="num-btn" data-num="2">2</button>
@@ -77,22 +83,23 @@
             </div>
         </div>
 
-        <!-- Settings Panel -->
+        <!-- Settings Panel: Provides additional game features such as timer, strike counter, and leaderboards -->
         <div class="settings-container">
             <div class="settings-header">
                 <hr class="settings-top-line">
                 <h2>Settings</h2>
             </div>
 
-            <!-- Timer & Strike Counter Section -->
+            <!-- Timer & Strike Counter Section: Displays game timer and strike counter with a pause button -->
             <div class="timer-strike-wrapper">
-                <!-- 🔹 Strike Counter (Now on the left) -->
+                
+                <!-- Strike Counter Box: Shows the current number of strikes -->
                 <div class="strike-counter-box">
                     <p class="strike-counter-text">Strikes:</p>
                     <span id="strike-counter">0</span>
                 </div>
 
-                <!-- 🔹 Timer Display (Now on the right) -->
+                <!-- Timer Box: Displays elapsed game time and includes a pause button -->
                 <div class="timer-box">
                     <div id="timer">00:00</div>
                     <button id="pauseBtn" class="pause-button">
@@ -102,11 +109,49 @@
             </div>
 
             <hr class="settings-bottom-line">
-        </div>
 
+            <!-- Leaderboard Section: Contains leaderboards for each difficulty level (Easy, Medium, Hard) -->
+            <div class="leaderboard-container">
+                <!-- Easy Mode Leaderboard -->
+                <div class="leaderboard-section">
+                    <h4>Easy</h4>
+                    <table class="leaderboard-table" id="easy-leaderboard">
+                        <tr>
+                            <th>Player</th>
+                            <th>Time</th>
+                            <th>Strikes</th>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Medium Mode Leaderboard -->
+                <div class="leaderboard-section">
+                    <h4>Medium</h4>
+                    <table class="leaderboard-table" id="medium-leaderboard">
+                        <tr>
+                            <th>Player</th>
+                            <th>Time</th>
+                            <th>Strikes</th>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Hard Mode Leaderboard -->
+                <div class="leaderboard-section">
+                    <h4>Hard</h4>
+                    <table class="leaderboard-table" id="hard-leaderboard">
+                        <tr>
+                            <th>Player</th>
+                            <th>Time</th>
+                            <th>Strikes</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- ✅ Win Modal for Completion Screen -->
+    <!-- Win Modal: Popup modal that appears upon game completion to display win message and options -->
     <div id="win-modal" class="win-modal">
         <div class="win-content">
             <button id="closeWinModal" class="close-btn">&times;</button>
@@ -116,7 +161,18 @@
         </div>
     </div>
 
-    <!-- FontAwesome for Pause Button Icon -->
+    <!-- Leaderboard Name Entry Modal: Popup modal for players to enter their name for leaderboard submission -->
+    <div id="leaderboard-modal" class="win-modal">
+        <div class="win-content">
+            <button id="closeLeaderboardModal" class="close-btn">&times;</button>
+            <h2 id="leaderboard-message"></h2>
+            <p id="leaderboard-details"></p>
+            <input type="text" id="playerNameInput" placeholder="Enter your name" maxlength="12">
+            <button id="submitLeaderboardBtn">Submit</button>
+        </div>
+    </div>
+
+    <!-- External Script: Loads FontAwesome icons (e.g., pause button icon) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 
 </body>
