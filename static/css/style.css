@@ -1,13 +1,18 @@
-/* Import Fonts */
+/*
+  Sudoku Project - style.css
+  Description: This stylesheet defines the styles for the Sudoku project interface, including font imports, global styling, layout with Flexbox, and modal styling for win and leaderboard functionalities.
+*/
+
+/* Import Google Fonts for styling text */
 @import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
 
-/* Apply a global box-sizing rule */
+/* Universal selector for consistent box-sizing across elements */
 * {
     box-sizing: border-box;
 }
 
-/* Apply the main theme with a light orange background */
+/* Body styling: sets font, background color, centers content, and defines viewport height */
 body {
     font-family: 'Lora', serif;
     background-color: #FFE5B4;
@@ -18,27 +23,28 @@ body {
     margin: 0;
 }
 
-/* 🔹 Layout Flexbox - Ensures Proper Width Distribution */
+/* Page container: uses Flexbox to center child elements with a gap and defines maximum width */
 .page-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px; /* ✅ Keeps consistent spacing */
+    gap: 40px;
     width: 100%;
-    max-width: 1500px; /* ✅ Ensures responsiveness */
+    max-width: 1500px;
 }
 
-/* 🔹 Ensure All Panels Take Equal Space */
-.directions-container, .settings-container {
-    flex: 1;  /* ✅ Allows both containers to expand equally */
-    min-width: 300px;  /* ✅ Prevents shrinking too much */
-    max-width: 400px;  /* ✅ Limits excessive stretching */
+/* Directions and settings containers: define responsive side panels with set width limits */
+.directions-container,
+.settings-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
 }
 
-/* 🔹 Game Container Expands Without Squishing Others */
+/* Game container: styles the game area with a white background, padding, centered text, and a drop shadow */
 .game-container {
-    flex: 2; /* ✅ Allows the game container to take more space */
-    max-width: 450px; /* ✅ Prevents excessive stretching */
+    flex: 2;
+    max-width: 450px;
     text-align: center;
     background: #fff;
     padding: 20px;
@@ -50,7 +56,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* ✅ Win Modal */
+/* Win modal: hidden by default, fixed position and centered with a box shadow for a pop-up effect */
 .win-modal {
     display: none;
     position: fixed;
@@ -63,18 +69,18 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     text-align: center;
     border: 2px solid black;
-    z-index: 1000; /* Ensures it appears above everything */
+    z-index: 1000;
 }
 
-/* ✅ Win Modal Content */
+/* Win modal heading: uses a decorative font, size adjustment, margin for spacing, and an underline */
 .win-content h2 {
     font-family: 'Italiana', sans-serif;
     font-size: 24px;
     margin-bottom: 10px;
-    text-decoration: underline; /* Makes difficulty text underlined */
+    text-decoration: underline;
 }
 
-/* ✅ Close Button (X) */
+/* Close button: positioned within the modal for an easy exit with a larger font size */
 .close-btn {
     position: absolute;
     top: 5px;
@@ -85,13 +91,96 @@ body {
     cursor: pointer;
 }
 
-/* ✅ Play Again Button */
+/* Play Again button: styles the button with padding, font settings, colors, borders, and rounded corners */
 #playAgainBtn {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    background: #4CAF50;
-    color: white;
-    cursor: pointer;
+    padding: 10px 20px;
     font-size: 16px;
+    font-family: 'Lora', serif;
+    background-color: #4CAF50;
+    color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Play Again button hover effect: changes background color for interactive feedback */
+#playAgainBtn:hover {
+    background-color: #45a049;
+}
+
+/* Leaderboard modal: hidden modal with fixed positioning, centered content, and rounded corners */
+#leaderboard-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    background: white;
+    border: 2px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 20px;
+    font-family: 'Lora', serif;
+    border-radius: 10px;
+}
+
+/* Leaderboard modal content: arranges content in a centered, vertical layout */
+#leaderboard-modal .win-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Close leaderboard modal button: positioned within the modal for an easy exit */
+#closeLeaderboardModal {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Leaderboard message: defines the style for the primary message text in the leaderboard modal */
+#leaderboard-message {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Leaderboard details: styles supplementary text in the leaderboard modal */
+#leaderboard-details {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Player name input: styles the input field for entering the player's name */
+#playerNameInput {
+    width: 80%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Submit leaderboard button: styles the button for submitting the player's name with a hover effect */
+#submitLeaderboardBtn {
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Submit leaderboard button hover effect: changes background color on hover for interactive feedback */
+#submitLeaderboardBtn:hover {
+    background-color: #45a049;
 }
