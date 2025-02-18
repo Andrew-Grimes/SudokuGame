@@ -1,4 +1,9 @@
-/* 🔹 Sudoku Game Container */
+/*
+  Sudoku Project - game.css
+  Description: This stylesheet defines the styles for the Sudoku game area, including the container layout, header, control buttons, Sudoku board design, input fields, highlighting effects, and the number selection panel.
+*/
+
+/* Sudoku Game Container: Sets up the main game area with centered text, white background, padding, and a drop shadow */
 .game-container {
     text-align: center;
     background: #fff;
@@ -12,7 +17,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* 🔹 Game Header */
+/* Game Header: Positions and styles the game header area with centered content and spacing below */
 .game-header {
     position: relative;
     width: 100%;
@@ -20,7 +25,7 @@
     margin-bottom: 10px;
 }
 
-/* 🔹 Divider inside Sudoku game container */
+/* Divider inside Sudoku game container: Adds a decorative top line for visual separation */
 .top-line {
     width: 97%;
     border: none;
@@ -29,14 +34,14 @@
     margin-top: -12px;
 }
 
-/* Sudoku Game Title - Increased Size & Less Spacing */
+/* Sudoku Game Title: Styles the main title (h1) using a decorative font, size adjustment, and spacing */
 h1 {
     font-family: 'Italiana', sans-serif !important;
     font-size: 32px;
     margin-bottom: 10px;
 }
 
-/* Controls for game settings */
+/* Controls for game settings: Arranges control buttons and dropdowns using Flexbox with responsive wrapping */
 .controls {
     display: flex;
     justify-content: center;
@@ -46,7 +51,7 @@ h1 {
     flex-wrap: wrap;
 }
 
-/* Style buttons and dropdown menu */
+/* Style buttons and dropdown menu: Applies base styles for buttons and select elements in the controls area */
 .controls button, .controls select {
     padding: 10px 20px;
     font-size: 16px;
@@ -55,25 +60,25 @@ h1 {
     cursor: pointer;
 }
 
-/* Start button style */
+/* Start button style: Specific styling for control buttons with a green background and serif font */
 .controls button {
     background-color: #4CAF50;
     color: white;
     font-family: 'Lora', serif;
 }
 
-/* Button hover effect */
+/* Button hover effect: Provides a darker green background when buttons are hovered */
 .controls button:hover {
     background-color: #45a049;
 }
 
-/* Dropdown style */
+/* Dropdown style: Styles the select element with a subtle background color and serif font */
 .controls select {
     background-color: #d1e0e0;
     font-family: 'Lora', serif;
 }
 
-/* 🔹 Sudoku Board */
+/* Sudoku Board: Creates a 9x9 grid layout with fixed cell dimensions and a solid border */
 .sudoku-board {
     display: grid;
     grid-template-columns: repeat(9, 40px);
@@ -82,7 +87,7 @@ h1 {
     border: 3px solid #000;
 }
 
-/* 🔹 Sudoku Input Fields */
+/* Sudoku Input Fields: Defines the dimensions, font, and border for input cells on the Sudoku board */
 .sudoku-board input {
     width: 40px;
     height: 40px;
@@ -93,36 +98,37 @@ h1 {
     font-family: 'Lora', serif;
 }
 
-/* 🔹 Prefilled Sudoku Numbers */
+/* Prefilled Sudoku Numbers: Styles disabled input fields with a different background to indicate preset values */
 .sudoku-board input:disabled {
     background-color: #d3e0ea;
     cursor: pointer;
 }
 
-/* 🔹 Highlighting Effect */
+/* Highlighting Effect: Applies a light orange background to highlighted cells */
 .highlight {
-    background-color: #F5E6CA !important; /* Light orange highlight */
+    background-color: #F5E6CA !important;
 }
 
-
-/* 🔹 Bold Borders for 3x3 Sections */
+/* Bold Borders for 3x3 Sections (Top): Adds a thicker top border to separate 3x3 sections */
 .sudoku-board .bold-border-top {
     border-top: 4px solid #000;
 }
 
+/* Bold Borders for 3x3 Sections (Left): Adds a thicker left border to separate 3x3 sections */
 .sudoku-board .bold-border-left {
     border-left: 4px solid #000;
 }
 
-/* 🔹 Number Selection Panel */
+/* Number Selection Panel: Styles the panel for selecting numbers with a centered layout and spacing between buttons */
 .number-selection {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    margin-top: 25px;/* Adjust spacing between board and panel */
+    margin-top: 25px; /* Adjust spacing between board and panel */
 }
 
+/* Number Selection Buttons: Sets dimensions, typography, border, background, and transition for number buttons */
 .number-selection button {
     width: 40px;
     height: 40px;
@@ -137,13 +143,13 @@ h1 {
     transition: background-color 0.2s ease-in-out;
 }
 
-/* 🔹 Highlight the selected number button */
+/* Highlight the selected number button: Applies a distinct background and border to the active selection */
 .selected-num {
-    background-color: #F5E6CA !important; 
+    background-color: #F5E6CA !important;
     border: 2px solid black;
 }
 
-/* 🔹 Hover and Active Effects */
+/* Hover and Active Effects: Adjusts the background for number buttons on hover and when active */
 .number-selection button:hover {
     background-color: #ddd;
 }
@@ -152,19 +158,20 @@ h1 {
     background-color: #bbb;
 }
 
+/* Transition effect for number buttons: Ensures smooth background color transitions */
 .num-btn {
     transition: background-color 0.2s ease-in-out;
 }
 
-/* 🔹 Crossed-Out Effect for Completed Numbers */
+/* Crossed-Out Effect for Completed Numbers: Applies a line-through style, reduced opacity, and disables pointer events */
 .crossed-out {
     position: relative;
     text-decoration: line-through;
-    opacity: 0.5; /* Dim the button to indicate it's disabled */
-    pointer-events: none; /* Prevent clicks */
+    opacity: 0.5;
+    pointer-events: none;
 }
 
-/* 🔹 Draw a line from bottom left to top right */
+/* Diagonal Line for Crossed-Out Numbers: Uses a pseudo-element to draw a line from bottom left to top right */
 .crossed-out::after {
     content: "";
     position: absolute;
