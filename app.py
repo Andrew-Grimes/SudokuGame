@@ -183,9 +183,12 @@ def get_leaderboard():
         leaderboard[diff] = [entry.to_dict() for entry in entries]
     return jsonify({"leaderboard": leaderboard})
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# Create tables before handling the first request (only one definition is needed)
+@app.before_request
+def create_tables_once():
+    if not hasattr(app, '_tables_created'):
+        db.create_all()
+        app._tables_created = True
 
 if __name__ == '__main__':
     with app.app_context():    
