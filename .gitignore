@@ -1,5 +1,2 @@
-# Ignore the instance folder (where your SQLite database is stored)
 instance/
-
-# Ignore all SQLite database files
 *.db
